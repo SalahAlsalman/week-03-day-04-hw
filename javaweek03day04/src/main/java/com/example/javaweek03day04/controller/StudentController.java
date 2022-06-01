@@ -4,6 +4,8 @@ import com.example.javaweek03day04.DTO.ResponseAPI;
 import com.example.javaweek03day04.model.Student;
 import com.example.javaweek03day04.service.StudentService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,26 +16,31 @@ import java.util.List;
 @RequestMapping("api/v1/student")
 @RequiredArgsConstructor
 public class StudentController {
+    Logger logger = LoggerFactory.getLogger(StudentController.class);
     private final StudentService studentService;
 
     @GetMapping
     public ResponseEntity<ResponseAPI<List<Student>>> getStudents(){
+        logger.info("getStudents => called");
         return ResponseEntity.status(200).body(new ResponseAPI<>(studentService.getStudents(),200));
     }
 
     @GetMapping("getStudent/{id}")
     public ResponseEntity<ResponseAPI<Student>> getOneStudent(@PathVariable Integer id) {
+        logger.info("getOneStudent => called");
         Student student = studentService.getOneStudent(id);
         return ResponseEntity.status(200).body(new ResponseAPI<>(student,200));
     }
 
     @PostMapping
     public ResponseEntity<ResponseAPI<String>> addStudent(@RequestBody @Valid Student student) {
+        logger.info("addStudent => called");
         studentService.addStudent(student);
         return ResponseEntity.status(201).body(new ResponseAPI<>("Student Added !", 201));
     }
     @PostMapping("/addClass")
     public ResponseEntity<ResponseAPI<?>> addClassToStudent(@RequestParam Integer class_id, @RequestParam Integer student_id){
+        logger.info("addClassToStudent => called");
         studentService.addClassToStudent(class_id,student_id);
         return ResponseEntity.status(200).body(new ResponseAPI<>(String.format("Class: %s added to Student: %s", class_id, student_id),200));
     }
