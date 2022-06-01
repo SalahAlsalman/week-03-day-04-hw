@@ -30,4 +30,13 @@ public class Classroom {
     @JsonIgnore
     private Teacher teacher;
 
+    @Override
+    public String toString() {
+        return "Classroom{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", student=" + student +
+                ", teacher=" + teacher +
+                '}';
+    }
 }

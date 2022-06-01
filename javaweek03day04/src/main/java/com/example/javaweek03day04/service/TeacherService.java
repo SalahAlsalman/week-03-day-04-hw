@@ -11,6 +11,7 @@ import com.example.javaweek03day04.repository.TeacherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -42,8 +43,15 @@ public class TeacherService {
         Teacher teacher = teacherRepository.findById(teacher_id).orElseThrow(()->{
            throw new TeacherNotFoundException("Teacher id is wrong");
         });
-
+        if (classroom.getTeacher() != null) {
+            throw new ClassroomNotFoundException("Classroom already has a teacher");
+        }
         classroom.setTeacher(teacher);
+        classroomRepository.save(classroom);
+        if (teacher.getClassroom().size() == 0) {
+            teacher.setClassroom(new HashSet<>());
+        }
         teacher.getClassroom().add(classroom);
+        teacherRepository.save(teacher);
     }
 }

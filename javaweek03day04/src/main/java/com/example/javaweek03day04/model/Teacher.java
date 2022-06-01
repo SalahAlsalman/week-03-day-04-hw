@@ -20,4 +20,13 @@ public class Teacher {
 
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     private Set<Classroom> classroom;
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", classroom=" + classroom +
+                '}';
+    }
 }

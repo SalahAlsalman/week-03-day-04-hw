@@ -28,5 +28,14 @@ public class Student {
     @ManyToMany(mappedBy = "student",cascade = CascadeType.ALL)
     private Set<Classroom> classroom;
 
-    
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", major='" + major + '\'' +
+                ", classroom=" + classroom +
+                '}';
+    }
 }

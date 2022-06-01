@@ -32,4 +32,9 @@ public class StudentController {
         studentService.addStudent(student);
         return ResponseEntity.status(201).body(new ResponseAPI<>("Student Added !", 201));
     }
+    @PostMapping("/addClass")
+    public ResponseEntity<ResponseAPI<?>> addClassToStudent(@RequestParam Integer class_id, @RequestParam Integer student_id){
+        studentService.addClassToStudent(class_id,student_id);
+        return ResponseEntity.status(200).body(new ResponseAPI<>(String.format("Class: %s added to Student: %s", class_id, student_id),200));
+    }
 }
